@@ -8,7 +8,7 @@ function tokenForUser(user) {
     exp: Math.round(Date.now() / 1000 + 5 * 60 * 60)}, keys.TOKEN_SECRET)
 }
 
-exports.signin = function(req, res, next) {
+exports.signin = function(req, res) {
   // User has already had their email and password auth'd
   // We just need to give them a token
   res.send({
@@ -49,7 +49,10 @@ exports.signup = function(req, res, next) {
       if (err) { return next(err) }
 
       // Repond to request indicating the user was created
-      res.json({ token: tokenForUser(user), email: user.email })
+      res.json({ 
+        token: tokenForUser(user), 
+        email: user.email 
+      })
     });
   });
 }
